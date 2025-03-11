@@ -11,7 +11,6 @@ import Profile from './pages/Profile';
 import PublicProfile from './pages/PublicProfile';
 import Tasks from './pages/Tasks';
 import SignUp from './pages/SignUp';
-import { supabase } from './lib/supabase';
 import { supabase } from './supabaseClient';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
