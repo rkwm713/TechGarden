@@ -3,15 +3,13 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
-import { setupAdminUser } from './lib/setupAdmin';
-
+import { supabase } from './supabaseClient';
 // Set up admin user on app initialization
-setupAdminUser();
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
-);
+async function signUpUser(email, password) {
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) {
+    console.error('Sign up error:', error.message);
+  } else {
+    console.log('Sign up successful:', data);
+  }
+}
