@@ -5,6 +5,7 @@ export type TaskPriority = 'low' | 'medium' | 'high';
 export type PlantStatus = 'seeded' | 'sprouting' | 'growing' | 'harvesting' | 'finished';
 export type PlotType = 'Ground Planted' | 'Raised Bed' | 'Pathway' | 'Sitting Area' | 'Available';
 export type PlotAssignmentRole = 'primary' | 'helper';
+export type UserRole = 'admin' | 'mod' | 'ruser';
 
 export interface Achievement {
   title: string;
