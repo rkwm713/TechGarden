@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-saira uppercase tracking-brand text-techserv-black;
+  }
+
+  body {
+    @apply font-neuton text-techserv-black bg-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-techserv-blue text-white px-6 py-3 rounded hover:bg-techserv-storm transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-techserv-sky text-techserv-blue px-6 py-3 rounded hover:bg-techserv-conduit transition-colors;
+  }
+}
