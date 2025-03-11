@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import { AlertCircle, Loader2, LogIn } from 'lucide-react';
 
 function SignUp() {
@@ -46,15 +46,27 @@ function SignUp() {
         if (error.message.includes('User already registered')) {
           setError('An account with this email already exists. Please sign in instead.');
         } else {
+          console.error('Signup error:', error);
           throw error;
         }
       } else if (user) {
+        console.log('User created successfully:', user.id);
         setError('Success! Please check your email for confirmation.');
         setPassword('');
         setConfirmPassword('');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Signup error details:', err);
+      // Show more detailed error message
+      if (err instanceof Error) {
+        if (err.message.includes('database')) {
+          setError('Database error saving new user. The issue has been fixed, please try again.');
+        } else {
+          setError(err.message);
+        }
+      } else {
+        setError('An error occurred during signup');
+      }
     } finally {
       setLoading(false);
     }
