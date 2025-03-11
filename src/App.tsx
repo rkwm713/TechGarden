@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import PublicProfile from './pages/PublicProfile';
 import Tasks from './pages/Tasks';
+import SignUp from './pages/SignUp';
 import { supabase } from './lib/supabase';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -46,6 +47,7 @@ function App() {
     <div className="min-h-screen flex flex-col bg-sage-50">
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         
         {/* Protected Routes */}
         <Route path="/" element={
