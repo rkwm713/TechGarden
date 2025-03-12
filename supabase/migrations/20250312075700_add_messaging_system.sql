@@ -120,17 +120,32 @@ CREATE POLICY "Users can insert messages to their conversations"
     )
   );
 
+-- Create a function to enforce that only the read status can be updated
+CREATE OR REPLACE FUNCTION check_messages_update_read_only()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Ensure all fields except read remain unchanged
+  IF NEW.conversation_id != OLD.conversation_id OR
+     NEW.sender_id != OLD.sender_id OR
+     NEW.content != OLD.content OR
+     NEW.created_at != OLD.created_at THEN
+    RETURN NULL; -- Reject the update
+  END IF;
+  RETURN NEW; -- Allow the update
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger to enforce that only read status is changed
+CREATE TRIGGER enforce_messages_read_only_update
+  BEFORE UPDATE ON messages
+  FOR EACH ROW
+  EXECUTE FUNCTION check_messages_update_read_only();
+
+-- Create policy to allow users to update messages in their conversations
 CREATE POLICY "Users can update read status of their messages" 
   ON messages 
   FOR UPDATE 
   USING (EXISTS (
     SELECT 1 FROM conversation_participants 
     WHERE conversation_id = messages.conversation_id AND user_id = auth.uid()
-  ))
-  WITH CHECK (
-    -- Only allow updating the read field
-    OLD.conversation_id = NEW.conversation_id AND
-    OLD.sender_id = NEW.sender_id AND
-    OLD.content = NEW.content AND
-    OLD.created_at = NEW.created_at
-  );
+  ));
