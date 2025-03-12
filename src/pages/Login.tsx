@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LogIn, Loader2, AlertCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { UserRole } from '../lib/types';
 import WeatherWidget from '../components/WeatherWidget';
 
@@ -17,7 +17,7 @@ function Login() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        const from = (location.state as any)?.from?.pathname || '/';
+        const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
         navigate(from);
       }
     });
@@ -65,18 +65,17 @@ function Login() {
 
       if (user) {
         // Check if profile exists
-        const { data: profile, error: profileError } = await supabase
+        const { count, error: profileError } = await supabase
           .from('profiles')
-          .select('id, role')
-          .eq('id', user.id)
-          .single();
+          .select('id', { count: 'exact', head: true })
+          .eq('id', user.id);
 
-        if (profileError && profileError.code === 'PGRST116') {
+        if (!count || profileError) {
           // Profile doesn't exist, create it
           await createProfile(user.id, user.email!);
         }
 
-        const from = (location.state as any)?.from?.pathname || '/';
+        const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
         navigate(from);
       }
     } catch (err) {

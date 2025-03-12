@@ -38,7 +38,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Task, Profile, TaskStatus, TaskPriority, Plot } from '../lib/types';
 import { DEFAULT_GARDEN_TASKS } from '../lib/types';
 import TaskCard from '../components/TaskCard';

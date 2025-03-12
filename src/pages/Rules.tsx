@@ -18,7 +18,7 @@ import {
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Rule, Profile } from '../lib/types';
 
 interface RuleFormData {

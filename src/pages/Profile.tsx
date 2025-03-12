@@ -16,7 +16,7 @@ import {
   CheckCircle,
   XCircle
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Profile, Plot, Task, Event } from '../lib/types';
 
 interface ProfileStats {

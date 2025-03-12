@@ -13,7 +13,7 @@ import {
   Save,
   User
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Event, Profile } from '../lib/types';
 
 interface EventFormData {

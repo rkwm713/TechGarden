@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, Search, X } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Profile } from '../lib/types';
 
 interface UserSelectProps {

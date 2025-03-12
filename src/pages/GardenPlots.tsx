@@ -22,7 +22,7 @@ import {
   ArrowRight,
   Users
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Plot, PlotPlant, Profile, PlantStatus, PlotType, Task, PlotAssignment } from '../lib/types';
 import UserSelect from '../components/UserSelect';
 
@@ -658,8 +658,8 @@ function GardenMap({ plots, selectedPlot, onPlotSelect }: {
             const plotNumber = (row * cols + col + 1).toString();
             const plot = plots.find(p => p.number === plotNumber);
             const isSelected = plot?.id === selectedPlot;
-            const hasPlants = plot?.plants.length > 0;
-            const hasTasks = plot?.tasks.length > 0;
+            const hasPlants = plot?.plants && plot.plants.length > 0;
+            const hasTasks = plot?.tasks && plot.tasks.length > 0;
 
             return (
               <button

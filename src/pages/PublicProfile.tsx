@@ -11,7 +11,7 @@ import {
   CheckCircle,
   XCircle
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Profile, Plot, Achievement } from '../lib/types';
 
 export default function PublicProfile() {
