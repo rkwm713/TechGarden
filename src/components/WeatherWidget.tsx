@@ -1,37 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Cloud, Sun, Wind, Droplet, Umbrella, CalendarDays, ArrowDown, ArrowUp } from 'lucide-react';
-import { getWeather, type WeatherData } from '../lib/weather';
+import React from 'react';
+import { Cloud, Sun, Wind, Droplet, Umbrella, CalendarDays, ArrowDown, ArrowUp, RefreshCw } from 'lucide-react';
+import { useWeather } from '../contexts/WeatherContext';
 
 export default function WeatherWidget() {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const data = await getWeather();
-        setWeather(data);
-        setError(null);
-      } catch (err) {
-        setError('Failed to load weather data');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWeather();
-    // Refresh weather data every 30 minutes
-    const interval = setInterval(fetchWeather, 30 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { weather, loading, error, refreshWeather } = useWeather();
 
   if (loading) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-6 animate-pulse">
-        <h2 className="text-2xl font-semibold mb-4">Garden Weather</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-semibold">Garden Weather</h2>
+        <button
+          onClick={refreshWeather}
+          className="text-techserv-blue hover:text-techserv-storm transition-all"
+          aria-label="Refresh weather"
+        >
+          <RefreshCw className="h-5 w-5" />
+        </button>
+      </div>
         <div className="space-y-4">
           <div className="h-8 bg-gray-200 rounded w-3/4"></div>
           <div className="h-8 bg-gray-200 rounded w-1/2"></div>

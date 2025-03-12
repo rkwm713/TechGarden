@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Users, Sprout, Loader2 } from 'lucide-react';
 import WeatherWidget from '../components/WeatherWidget';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 import type { Event } from '../lib/types';
 
 interface CommunityStats {
