@@ -1,5 +1,3 @@
-import { UserRole } from './types';
-
 export type TaskStatus = 'open' | 'assigned' | 'completed';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type PlantStatus = 'seeded' | 'sprouting' | 'growing' | 'harvesting' | 'finished';
@@ -158,6 +156,27 @@ export const DEFAULT_GARDEN_TASKS = [
     priority: 'medium' as TaskPriority
   }
 ] as const;
+
+export type MessageReadStatus = 'read' | 'unread';
+
+export interface Conversation {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  participants?: Profile[];
+  last_message?: Message;
+}
+
+export interface Message {
+  id: string;
+  conversation_id: string;
+  sender_id: string;
+  content: string;
+  read: boolean;
+  created_at: string;
+  updated_at: string;
+  sender?: Profile;
+}
 
 export const isAdmin = (role: UserRole) => role === 'admin';
 export const isMod = (role: UserRole) => role === 'mod';

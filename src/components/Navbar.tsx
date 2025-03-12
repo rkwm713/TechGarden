@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, Leaf } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../supabaseClient';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -66,6 +66,12 @@ export default function Navbar() {
                 className="text-white hover:text-techserv-sky font-saira tracking-brand"
               >
                 RESOURCES
+              </Link>
+              <Link
+                to="/messages"
+                className="text-white hover:text-techserv-sky font-saira tracking-brand"
+              >
+                MESSAGES
               </Link>
               {user ? (
                 <>
@@ -147,6 +153,13 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
             >
               RESOURCES
+            </Link>
+            <Link
+              to="/messages"
+              className="block px-3 py-2 text-white hover:text-techserv-sky font-saira tracking-brand"
+              onClick={() => setIsOpen(false)}
+            >
+              MESSAGES
             </Link>
             {user ? (
               <>

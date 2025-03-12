@@ -11,6 +11,8 @@ import Profile from './pages/Profile';
 import PublicProfile from './pages/PublicProfile';
 import Tasks from './pages/Tasks';
 import SignUp from './pages/SignUp';
+import Messages from './pages/Messages';
+import NewMessage from './pages/NewMessage';
 import { supabase } from './supabaseClient';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -133,6 +135,39 @@ function App() {
               <Navbar />
               <main className="flex-grow">
                 <Tasks />
+              </main>
+            </>
+          </PrivateRoute>
+        } />
+        
+        <Route path="/messages" element={
+          <PrivateRoute>
+            <>
+              <Navbar />
+              <main className="flex-grow">
+                <Messages />
+              </main>
+            </>
+          </PrivateRoute>
+        } />
+        
+        <Route path="/messages/:conversationId" element={
+          <PrivateRoute>
+            <>
+              <Navbar />
+              <main className="flex-grow">
+                <Messages />
+              </main>
+            </>
+          </PrivateRoute>
+        } />
+        
+        <Route path="/messages/new" element={
+          <PrivateRoute>
+            <>
+              <Navbar />
+              <main className="flex-grow">
+                <NewMessage />
               </main>
             </>
           </PrivateRoute>
