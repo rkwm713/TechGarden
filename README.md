@@ -120,4 +120,4 @@ This application is configured for deployment on Netlify with:
 
 ## 📝 License
 
-[License details here]
+MIT
