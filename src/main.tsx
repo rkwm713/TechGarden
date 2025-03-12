@@ -6,6 +6,7 @@ import './index.css';
 import { supabase } from './supabaseClient';
 import { AuthProvider } from './contexts/AuthContext';
 import { WeatherProvider } from './contexts/WeatherContext';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Confirm that Supabase is loaded properly
 console.log('Supabase initialized:', !!supabase);
@@ -15,12 +16,14 @@ const root = createRoot(container!);
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <WeatherProvider>
-          <App />
-        </WeatherProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AuthProvider>
+          <WeatherProvider>
+            <App />
+          </WeatherProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   </StrictMode>
 );

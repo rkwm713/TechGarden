@@ -45,7 +45,13 @@ const NewMessage: React.FC = () => {
     try {
       setCreating(true);
       const conversation = await createConversation(selectedUsers);
-      navigate(`/messages/${conversation.id}`);
+      
+      if (conversation) {
+        navigate(`/messages/${conversation.id}`);
+      } else {
+        setError('Failed to create conversation. Please try again.');
+        setCreating(false);
+      }
     } catch (err) {
       setError('Failed to create conversation');
       console.error(err);
